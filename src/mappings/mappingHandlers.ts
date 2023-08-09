@@ -1,11 +1,9 @@
-import {
-  SubstrateEvent,
-} from "@subql/types";
+import { WasmEvent } from "@subql/substrate-wasm-processor";
 import { MultisigsFactory } from "../types/models/MultisigsFactory";
 
-export async function handleWasmEvent(event: SubstrateEvent): Promise<void> {
+export async function handleWasmEvent(event: WasmEvent): Promise<void> {
   logger.info(
-    `New MultisigFactory event found at block ${event.block.block.header.number.toString()}`
+    `New MultisigFactory event found at block ${event.blockNumber.toString()}`
   );
 
   // Get data from the event

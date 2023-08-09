@@ -34,8 +34,11 @@ dataSources:
       options:
         abi: multisig_factory
         contract: "5HRfJo4TkyLU2Dh8pmaTyU5ynMr94uLv9GYZnRHpsCBiECaC" # Factory
+    assets:
+      multisig_factory:
+        file: ./abis/multisig_factory.json
     mapping:
-      file: ./src/mappingHandlers.js
+      file: ./src/mappings/mappingHandlers.ts
       handlers:
         - handler: handleWasmEvent
           kind: substrate/WasmEvent

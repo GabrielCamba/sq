@@ -1,0 +1,44 @@
+specVersion: 1.0.0
+name: Factorium
+version: 1.0.0
+runner:
+  node:
+    name: "@subql/node"
+    version: "*"
+  query:
+    name: "@subql/query"
+    version: "*"
+description: >-
+  This project can be used as a starting point for developing your SubQuery
+  project
+repository: "https://github.com/subquery/subql-starter"
+schema:
+  file: ./schema.graphql
+network:
+  # The genesis hash of the network (hash of block 0)
+  #chainId: "0x91b171bb158e2d3848fa23a9f1c25182fb8e20313b2c1eb49219da7a70ce90c3"
+  # Polkadot.js ->  Developer -> Chainstate -> system -> Blockhash -> 0
+  chainId: "0xc5442742bb6288bb3835ea1c9032981f06433ee5fc65d6e216c4422c0c19b989"
+  # This endpoint must be a public non-pruned archive node
+  # Public nodes may be rate limited, which can affect indexing speed
+  # When developing your project we suggest getting a private API key
+  # You can get them from OnFinality and other RPC providers that serve Polkadot
+  endpoint: wss://rococo-contracts-rpc.polkadot.io
+  # Optionally provide the HTTP endpoint of a full chain dictionary to speed up processing
+  # dictionary: "https://api.subquery.network/sq/subquery/polkadot-dictionary"
+dataSources:
+  - kind: substrate/Wasm
+    startBlock: 3151956
+    processor:
+      file: ./node_modules/@subql/substrate-wasm-processor/dist/bundle.js
+      options:
+        abi: multisig_factory
+        contract: "5HRfJo4TkyLU2Dh8pmaTyU5ynMr94uLv9GYZnRHpsCBiECaC" # Factory
+    mapping:
+      file: ./src/mappingHandlers.js
+      handlers:
+        - handler: handleWasmEvent
+          kind: substrate/WasmEvent
+          filter:
+            contract: "5HRfJo4TkyLU2Dh8pmaTyU5ynMr94uLv9GYZnRHpsCBiECaC" # Factory
+            identifier: "NewMultisig"
